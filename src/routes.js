@@ -15,9 +15,9 @@ function getConnection(){
      })
 }
 router.get('/',(req,res)=>{
-     res.render('index.');
+     res.sendFile('index.html',{root:path.join(__dirname,'./src')});
 })
-router.get('/',(req,res)=>{
+router.get('/get_todos',(req,res)=>{
      const querryString = "SELECT * FROM todos WHERE complete = '0'"
      conn.query(queryString,(err,rows,fields)=>{
           if(err){
@@ -32,7 +32,7 @@ router.get('/',(req,res)=>{
 
 router.post('/add_todo',(req,res)=>{
      const todo = req.body.add_todo_input
-     const querryString = "INSERT INTO todos (todo) VALUES (?)"
+     const queryString = "INSERT INTO todos (todo) VALUES (?)"
      conn.query(queryString,(err,rows,fields)=>{
           if(err){
                console.log("failed" + err)
@@ -44,4 +44,4 @@ router.post('/add_todo',(req,res)=>{
      })
 })
 
-module.exports = router
+module.exports = router;
